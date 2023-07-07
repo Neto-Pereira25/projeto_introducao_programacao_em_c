@@ -732,6 +732,5 @@ int main(){
                 break;
         }
     }while(opcao != 11);
-
     return 0;
 }
