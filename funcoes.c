@@ -280,7 +280,7 @@ void alterar_pessoa(Pessoa **p, int qtd){ // Atualizando informações da pessoa
         
         do{
             printf("\nDigite o seu CPF: ");
-            scanf("%11[^\n]", &novaPessoa->cpf);
+            scanf("%11[^\n]", novaPessoa->cpf);
             if(!validarCPF(novaPessoa->cpf)){
                 printf("\n\tCPF Invalido! Tente Novamente.");
             }
@@ -584,7 +584,7 @@ void alterarArquivoBinario(char arq[]){
             
             do{
                 printf("\nDigite o seu CPF: ");
-                scanf("%11[^\n]", &p.cpf);
+                scanf("%11[^\n]", p.cpf);
                 if(!validarCPF(p.cpf)){
                     printf("\n\tCPF Invalido! Tente Novamente.");
                 }
