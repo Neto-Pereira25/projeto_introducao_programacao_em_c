@@ -140,7 +140,7 @@ int cadastrar_pessoa(Pessoa **p, int tam, int qtd){ // Cadastrando pessoa na lis
         
         do{
             printf("\nDigite o seu CPF: ");
-            scanf("%11[^\n]", &novaPessoa->cpf);
+            scanf("%11[^\n]", novaPessoa->cpf);
 
             getchar();
 
