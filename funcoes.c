@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 typedef struct{
     char nome[100];
     int idade, estadoCivil, nacionalidade;
@@ -16,6 +15,7 @@ typedef struct{
 }Pessoa;
 
 void menu(){
+
     puts("\n\t************* CRUD *************");
     puts("\t1 - CADASTRAR PESSOA");
     puts("\t2 - ALTERAR DADOS DA PESSOA");
