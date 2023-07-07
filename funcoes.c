@@ -324,6 +324,11 @@ void alterar_pessoa(Pessoa **p, int qtd){
 int deletarPessoa(Pessoa **p, int qtd){
     int opcao;
     
+    if(qtd < 0){
+        printf("\nVoce ainda nao possui pessoas cadastradas!\n");
+        return 0;
+    }
+
     imprimir_lista(p, qtd);
 
     printf("\n\tDigite o indice para deletar a pessoa: ");
@@ -352,6 +357,20 @@ void salvarPessoaARQ(Pessoa **p, int qtd, char arq[]){
     if(file){
         fprintf(file, "%d\n", qtd);
         for(i = 0; i < qtd; i++){
+            // fprintf(file, "%99[^\n]\n", p[i]->nome);
+            // fprintf(file, "%d\n", p[i]->idade);
+            // fprintf(file, "%11[^\n]\n", p[i]->cpf);
+            // fprintf(file, "%.2f\n", p[i]->altura);
+            // fprintf(file, "%.2f\n", p[i]->peso);
+            // fprintf(file, "%.2f\n", p[i]->IMC);
+            // fprintf(file, "%11[^\n]\n", p[i]->telefone);
+            // fprintf(file, "%99[^\n]\n", p[i]->estadoCivil);
+            // fprintf(file, "%99[^\n]\n", p[i]->email);
+            // fprintf(file, "%99[^\n]\n", p[i]->profissao);
+            // fprintf(file, "%99[^\n]\n", p[i]->nacionalidade);
+            // fprintf(file, "%99[^\n]\n", p[i]->doenca);
+            // fprintf(file, "%99[^\n]\n", p[i]->endereco);
+            
             fputs(p[i]->nome, file);
             fputc('\n', file);
             fprintf(file, "%d", p[i]->idade);
@@ -387,7 +406,7 @@ int ler_arquivo(Pessoa **p, char arq[]){
     FILE *file = fopen(arq, "r");
     int quant = 0, i;
     Pessoa *novaPessoa = malloc(sizeof(Pessoa));
-    char f;
+    //char f;
 
     if(file){
 
@@ -400,17 +419,17 @@ int ler_arquivo(Pessoa **p, char arq[]){
         for(i = 0; i < quant; i++){
             fscanf(file, "%99[^\n]", novaPessoa->nome);
             fscanf(file, "%d\n", &novaPessoa->idade);
-            fscanf(file, "%11[^\n]", &novaPessoa->cpf);
-            fscanf(file, "%f\n", &novaPessoa->altura);
-            fscanf(file, "%f\n", &novaPessoa->peso);
+            fscanf(file, "%11[^\n]", novaPessoa->cpf);
+            fscanf(file, "%f", &novaPessoa->altura);
+            fscanf(file, "%f", &novaPessoa->peso);
             fscanf(file, "%f\n", &novaPessoa->IMC);
             fscanf(file, "%11[^\n]", novaPessoa->telefone);
             fscanf(file, "%d\n", &novaPessoa->estadoCivil);
-            fscanf(file, "%39[^\n]", novaPessoa->email);
+            fscanf(file, "%39[^\n]\n", novaPessoa->email);
             fscanf(file, "%99[^\n]", novaPessoa->profissao);
             fscanf(file, "%d\n", &novaPessoa->nacionalidade);
-            fscanf(file, "%99[^\n]", novaPessoa->doenca);
-            fscanf(file, "%49[^\n]", novaPessoa->endereco);
+            fscanf(file, "%99[^\n]\n", novaPessoa->doenca);
+            fscanf(file, "%49[^\n]\n", novaPessoa->endereco);
             p[i] = novaPessoa;
             novaPessoa = malloc(sizeof(Pessoa));
         }
