@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct{
+typedef struct{ // Struc definida
     char nome[100];
     int idade, estadoCivil, nacionalidade;
     char cpf[12];
@@ -14,7 +14,7 @@ typedef struct{
     char doenca[100];
 }Pessoa;
 
-void menu(){
+void menu(){ // Menu principal do crud
 
     puts("\n\t************* CRUD *************");
     puts("\t1 - CADASTRAR PESSOA");
@@ -23,7 +23,7 @@ void menu(){
     puts("\t4 - IMPRIMIR LISTA DE PESSOAS");
     puts("\t5 - SALVAR DADOS CADASTRADOS");
     puts("\t6 - LER ARQUIVO");
-    puts("\t7 - DELETAR ARQUIVO DE TEXTO");
+    puts("\t7 - DELETAR ARQUIVO");
     puts("\t8 - SALVAR ARQUIVO EM BINARIO");
     puts("\t9 - LER ARQUIVO EM BINARIO");
     puts("\t10 - ALTERAR ARQUIVO EM BINARIO");
@@ -31,7 +31,7 @@ void menu(){
     printf("\tDigite um numero inteiro: ");
 }
 
-void estadoCivil(){
+void estadoCivil(){// Menu de opções de estado civil
     puts("1 - SOLTEIRO");
     puts("2 - CASADO");
     puts("3 - DIVORCIADO");
@@ -42,7 +42,7 @@ void estadoCivil(){
     printf("Opcao: ");
 }
 
-void nacionalidades() {
+void nacionalidades() { // Menu de opções de nacionalidade
     puts("\t1 - Brasil");
     puts("\t2 - Argentina");
     puts("\t3 - Canada");
@@ -57,7 +57,7 @@ void nacionalidades() {
 }
 
 // Validando o CPF
-int validarCPF(char *cpf){
+int validarCPF(char *cpf){ // Validando CPF da pessoa
     int i, j, digito1 = 0, digito2 = 0;
     if(strlen(cpf) != 11){
         return 0;
@@ -98,11 +98,11 @@ int validarCPF(char *cpf){
 }
 
 // Calculando IMC
-float calcIMC(float p, float a){
+float calcIMC(float p, float a){ // Calculando a lista de pessoas
     return p/(a*a);
 }
 
-void imprimir_lista(Pessoa **p, int quant){
+void imprimir_lista(Pessoa **p, int quant){ // Imprimindo a lista de pessoas
     int i;
 
     printf("\n\t\t\tLista de Pessoas:\n");
@@ -116,9 +116,9 @@ void imprimir_lista(Pessoa **p, int quant){
     printf("\t----------------------------------------------------\n");
 }
 
-int cadastrar_pessoa(Pessoa **p, int tam, int qtd){
+int cadastrar_pessoa(Pessoa **p, int tam, int qtd){ // Cadastrando pessoa na lista
 
-    if(qtd < tam){
+    if(qtd < tam){ // Verificando se a quantidade de pessoas na lista é maior do que o tamanho do vetor definido na main
         Pessoa *novaPessoa = malloc(sizeof(Pessoa));
 
         // Pedindo dados para o usuário
@@ -196,11 +196,23 @@ int cadastrar_pessoa(Pessoa **p, int tam, int qtd){
             }
         }while(novaPessoa->estadoCivil < 1 || novaPessoa->estadoCivil > 7);
 
-        // Validacao com funçao
-        printf("\nDigite o seu email: ");
-        scanf("%39[^\n]", novaPessoa->email);
+        // Validacao do Email
+        int emailValido = 0;
+        do{
+            printf("\nDigite o seu email: ");
+            scanf("%39[^\n]", novaPessoa->email);
+            getchar();
 
-        getchar();
+            if((strstr(novaPessoa->email, "@gmail.com")) ||
+            (strstr(novaPessoa->email, "@hotmail.com")) || 
+            (strstr(novaPessoa->email, "@outlook.com")) || 
+            (strstr(novaPessoa->email, "@yahoo.com"))){
+                emailValido = 0;
+            } else {
+                printf("Email Invalido!\n");
+                emailValido = 1;
+            }
+        }while(emailValido);
 
         printf("\nDigite sua profissao: ");
         scanf("%99[^\n]", novaPessoa->profissao);
@@ -238,7 +250,7 @@ int cadastrar_pessoa(Pessoa **p, int tam, int qtd){
     }
 }
 
-void alterar_pessoa(Pessoa **p, int qtd){
+void alterar_pessoa(Pessoa **p, int qtd){ // Atualizando informações da pessoa da lista através de um índice
     int id;
 
     imprimir_lista(p, qtd);
@@ -247,7 +259,7 @@ void alterar_pessoa(Pessoa **p, int qtd){
     scanf("%d", &id);
     getchar();
     id--;
-    if(id >= 0 && id < qtd){
+    if(id >= 0 && id < qtd){ // Verificando se o indice é válido
         Pessoa *novaPessoa = malloc(sizeof(Pessoa));
         // Pedindo dados para o usuário
         printf("\nDigite o seu nome: ");
@@ -363,7 +375,7 @@ void alterar_pessoa(Pessoa **p, int qtd){
     }
 }
 
-int deletarPessoa(Pessoa **p, int qtd){
+int deletarPessoa(Pessoa **p, int qtd){ // Deletar pessoa da lista e Colocar a ultima pessoa da lista na posição da pessoa deletada
     int opcao;
     
     if(qtd < 0){
@@ -392,7 +404,7 @@ int deletarPessoa(Pessoa **p, int qtd){
     return -1;
 }
 
-void salvarPessoaARQ(Pessoa **p, int qtd, char arq[]){
+void salvarPessoaARQ(Pessoa **p, int qtd, char arq[]){ // Salvando a lista de pessoa em arquivo de texto
     FILE *file = fopen(arq, "w");
     int i;
 
@@ -444,7 +456,7 @@ void salvarPessoaARQ(Pessoa **p, int qtd, char arq[]){
     }
 }
 
-int ler_arquivo(Pessoa **p, char arq[]){
+int ler_arquivo(Pessoa **p, char arq[]){ // Lendo arquivo de texto
     FILE *file = fopen(arq, "r");
     int quant = 0, i;
     Pessoa *novaPessoa = malloc(sizeof(Pessoa));
@@ -538,7 +550,7 @@ void alterarArquivoBinario(char arq[]){
     Pessoa p;
     int id, i = 1;
 
-    if(file){
+    if(file){ 
         printf("\tLista de Pessoas:\n");
         printf("\t---------------------------------\n");
         while (fread(&p, sizeof(Pessoa), 1, file)){
@@ -553,7 +565,7 @@ void alterarArquivoBinario(char arq[]){
         scanf("%d", &id);
         getchar();
         id--;
-        if((id >= 0) && (id < (i - 1))){
+        if((id >= 0) && (id < (i - 1))){ // Verificando se o id digitado é válido
             printf("\nDigite o seu nome: ");
             scanf("%99[^\n]", p.nome);
             
@@ -660,7 +672,7 @@ void alterarArquivoBinario(char arq[]){
 
             // getchar();
 
-            fseek(file, id * sizeof(Pessoa), SEEK_SET);
+            fseek(file, id * sizeof(Pessoa), SEEK_SET); // Voltado o ponteiro para o inicio do arquivo
             fwrite(&p, sizeof(Pessoa), 1, file);
         }
 
@@ -675,7 +687,7 @@ int main(){
     Pessoa *pessoa[50];
     char arq[] = {"pessoa.txt"};
     char arq1[] = {"pessoa.bin"};
-    int opcao, qtd = 0, tam = 50;
+    int del, opcao, qtd = 0, tam = 50;
 
     do{
         menu();
@@ -706,11 +718,22 @@ int main(){
             
             case 6:
                 qtd = ler_arquivo(pessoa, arq);
-                // qtd = lerArquivoBinario(arq1, pessoa);
                 break;
             
             case 7:
-                deletar_arquivo(arq);
+                // Lendo a opcao do arquivo que vai ser deletado texto ou binario
+                printf("\n\t1 - Deletar arquivo de texto: \n");
+                printf("\t2 - Deletar arquivo binario: \n");
+                printf("\tDigite a opcao para deletar o arquivo: ");
+                scanf("%d", &del);
+                getchar();
+                if(del == 1){
+                    deletar_arquivo(arq);
+                } else if(del == 2){
+                    deletar_arquivo(arq1);
+                } else {
+                    printf("\n\tOpcao Invalida! Tente novamente!\n");
+                }
                 break;
             
             case 8:
