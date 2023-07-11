@@ -338,8 +338,22 @@ void alterar_pessoa(Pessoa **p, int qtd){ // Atualizando informações da pessoa
         }while(novaPessoa->estadoCivil < 1 || novaPessoa->estadoCivil > 7);
 
         // Validacao com funçao
-        printf("\nDigite o seu email: ");
-        scanf("%39[^\n]", novaPessoa->email);
+        int emailValido = 0;
+        do{
+            printf("\nDigite o seu email: ");
+            scanf("%39[^\n]", novaPessoa->email);
+            getchar();
+
+            if((strstr(novaPessoa->email, "@gmail.com")) ||
+            (strstr(novaPessoa->email, "@hotmail.com")) || 
+            (strstr(novaPessoa->email, "@outlook.com")) || 
+            (strstr(novaPessoa->email, "@yahoo.com"))){
+                emailValido = 0;
+            } else {
+                printf("Email Invalido!\n");
+                emailValido = 1;
+            }
+        }while(emailValido);
 
         getchar();
 
@@ -628,8 +642,22 @@ void alterarArquivoBinario(char arq[]){
             }while(strlen(p.telefone) != 11);
             
             // Validacao com funçao
+            int emailValido = 0;
+        do{
             printf("\nDigite o seu email: ");
             scanf("%39[^\n]", p.email);
+            getchar();
+
+            if((strstr(p.email, "@gmail.com")) ||
+            (strstr(p.email, "@hotmail.com")) || 
+            (strstr(p.email, "@outlook.com")) || 
+            (strstr(p.email, "@yahoo.com"))){
+                emailValido = 0;
+            } else {
+                printf("Email Invalido!\n");
+                emailValido = 1;
+            }
+        }while(emailValido);
 
             getchar();
 
